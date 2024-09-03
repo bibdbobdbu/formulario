@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:formulario/page/operador.dart';
+import 'package:formulario/codigo_desorganizado/operador.dart';
 
 
 void main() {

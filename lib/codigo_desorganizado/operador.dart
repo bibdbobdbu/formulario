@@ -1,32 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:formulario/src/domain/constants/pessoaFisica/entidade_carteira_naconal_habilitacao.dart';
+import 'package:formulario/src/domain/constants/entidade_endereco.dart';
+import 'package:formulario/src/domain/constants/pessoaFisica/entidade_pessoa_fisica.dart';
+import 'package:formulario/src/domain/constants/pessoaJuridica/entidade_pessoa_juridica.dart';
+
 
 void main() {
   runApp(MyApp());
 }
 
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final inputBorder = OutlineInputBorder( //borda que contorna um campo de texto  
+      borderRadius: BorderRadius.circular(8.0), 
+      );
+    final inputPadding = const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0);
+
     return MaterialApp(
       theme: ThemeData(
-        textTheme: TextTheme(
+        textTheme: const TextTheme(
           bodyLarge: TextStyle(color: Colors.black87),
-          bodyMedium: TextStyle(color: Colors.black54),
+          bodyMedium: const TextStyle(color: Colors.black54),
         ),
         inputDecorationTheme: InputDecorationTheme(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
-          ),
+          border: inputBorder,
           isDense: true,
-          contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+          contentPadding: inputPadding,
         ),
         dropdownMenuTheme: DropdownMenuThemeData(
           inputDecorationTheme: InputDecorationTheme(
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.0),
-            ),
+            border: inputBorder,
             isDense: true,
-            contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+            contentPadding: inputPadding,
           ),
         ),
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue)
@@ -68,7 +75,7 @@ class OperadorPage extends StatelessWidget {
                     width: 210, // Ajuste a largura conforme necessário
                     height: 110, // Ajuste a altura conforme necessário
                   ),
-                  SizedBox(width: 8), // Espaço entre a imagem e o texto
+                  const SizedBox(width: 8), // Espaço entre a imagem e o texto
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -81,7 +88,7 @@ class OperadorPage extends StatelessWidget {
                           ),
                           maxLines: 1, // Limita o texto a uma linha
                         ),
-                        SizedBox(height: 0),
+                        const SizedBox(height: 0),
                         Text(
                           'SEMOB',
                           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -94,11 +101,11 @@ class OperadorPage extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 16), // Aumente este valor para aumentar a distância
+              const SizedBox(height: 16), // Aumente este valor para aumentar a distância
               Container(
                 width: double.infinity, // Ajuste o comprimento aqui para se adaptar ao conteúdo
-                color: Color(0xFF005EB8), // Azul do GDF
-                padding: EdgeInsets.all(8.0),
+                color: const Color(0xFF005EB8), // Azul do GDF
+                padding: const EdgeInsets.all(8.0),
                 child: Text(
                   'Formulário de Cadastro de Operador',
                   textAlign: TextAlign.center, // Centraliza o texto
@@ -112,7 +119,7 @@ class OperadorPage extends StatelessWidget {
               Container(
                 width: double.infinity, // Ocupa toda a largura disponível
                 color: Colors.white, // Fundo do formulário em branco
-                padding: EdgeInsets.all(24.0), // Adiciona um padding interno
+                padding: const EdgeInsets.all(24.0), // Adiciona um padding interno
                 child: MyForm(),
               ),
             ],
@@ -134,14 +141,14 @@ class _MyFormState extends State<MyForm> {
   TextEditingController _expedicaoController = TextEditingController();
   TextEditingController _validadeController = TextEditingController();
 
-  final List<String> ufs = [
-    'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'
-  ];
 
-  final List<String> sexos = ['Masculino', 'Feminino', 'Não Informar'];
-  final List<String> cores = ['Branco', 'Preto', 'Pardo', 'Amarelo', 'Indígena'];
-  final List<String> etnias = ['Europeu', 'Africano', 'Asiático', 'Ameríndio', 'Mestiço'];
-  final List<String> categoriasCNH = ['A', 'B', 'C', 'D', 'E'];
+  final List<String> ufs = Ufs.values;
+  final List<String> sexos = Sexos.values;
+  final List<String> cores = Cores.values;
+  final List<String> etnias = Etnias.values;
+
+ 
+  final List<String> categoriasCNH = CategoriasCNH.values;
 
   @override
   Widget build(BuildContext context) {
@@ -149,22 +156,22 @@ class _MyFormState extends State<MyForm> {
       shrinkWrap: true, // Permite que o ListView ocupe apenas o espaço necessário
       children: [
         IdentificationSection(),
-        SizedBox(height: 24),
+        const SizedBox(height: 24),
         AddressSection(),
-        SizedBox(height: 24),
+        const SizedBox(height: 24),
         ContactsSection(),
-        SizedBox(height: 24),
+        const SizedBox(height: 24),
         IssSection(
           dateController: _dateController,
         ),
-        SizedBox(height: 24),
+        const SizedBox(height: 24),
         Text(
           'Tipo da Operadora',
           style: Theme.of(context).textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.bold,
           ),
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -177,7 +184,7 @@ class _MyFormState extends State<MyForm> {
                     _selectedTipoOperadora = value.toString();
                   });
                 },
-                title: Text('Pessoa Jurídica'),
+                title: const Text('Pessoa Jurídica'),
               ),
             ),
             Expanded(
@@ -189,12 +196,12 @@ class _MyFormState extends State<MyForm> {
                     _selectedTipoOperadora = value.toString();
                   });
                 },
-                title: Text('Pessoa Física'),
+                title: const Text('Pessoa Física'),
               ),
             ),
           ],
         ),
-        SizedBox(height: 24),
+        const SizedBox(height: 24),
         if (_selectedTipoOperadora == 'Pessoa Física')
           PessoaFisicaForm(
             ufs: ufs,
@@ -209,7 +216,7 @@ class _MyFormState extends State<MyForm> {
           PessoaJuridicaForm(
             ufs: ufs,
           ),
-        SizedBox(height: 24),
+        const SizedBox(height: 24),
         Align(
           alignment: Alignment.centerRight,
           child: SizedBox(
@@ -223,8 +230,8 @@ class _MyFormState extends State<MyForm> {
                 backgroundColor: Colors.blue[900],
                 foregroundColor: Colors.white,
               ),
-              icon: Icon(Icons.check),
-              label: Text("Cadastrar"),
+              icon: const Icon(Icons.check),
+              label: const Text("Cadastrar"),
             ),
           ),
         ),
@@ -232,7 +239,6 @@ class _MyFormState extends State<MyForm> {
     );
   }
 }
-
 
 class PessoaFisicaForm extends StatefulWidget {
   final List<String> ufs;
@@ -274,8 +280,8 @@ class _PessoaFisicaFormState extends State<PessoaFisicaForm> {
       children: [
         Row(
           children: [
-            Icon(Icons.person, size: 24),
-            SizedBox(width: 8),
+            const Icon(Icons.person, size: 24),
+            const SizedBox(width: 8),
             Text('Dados Pessoa Física', style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
           ]
         ),
@@ -283,9 +289,9 @@ class _PessoaFisicaFormState extends State<PessoaFisicaForm> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(child: CustomTextField(label: 'Nome Completo')),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Expanded(child: CustomTextField(label: 'Telefone Celular')),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Expanded(
               child: CustomDropdownField(
                 label: 'Sexo',
@@ -300,7 +306,7 @@ class _PessoaFisicaFormState extends State<PessoaFisicaForm> {
             ),
           ],
         ),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -316,7 +322,7 @@ class _PessoaFisicaFormState extends State<PessoaFisicaForm> {
                 },
               ),
             ),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Expanded(
               child: CustomDropdownField(
                 label: 'Etinia',
@@ -329,18 +335,18 @@ class _PessoaFisicaFormState extends State<PessoaFisicaForm> {
                 },
               ),
             ),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Expanded(child: CustomTextField(label: 'Raça')),
           ],
         ),
-        SizedBox(height: 12), // Adicionando um espaço de 24 pixels
+        const SizedBox(height: 12), // Adicionando um espaço de 24 pixels
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(child: CustomTextField(label: 'Data de Nascimento')),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Expanded(child: CustomTextField(label: 'Naturalidade')),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Expanded(
               child: CustomDropdownField(
                 label: 'UF Nascimento',
@@ -355,11 +361,11 @@ class _PessoaFisicaFormState extends State<PessoaFisicaForm> {
             ),
           ],
         ),
-        SizedBox(height: 24), // Adicionando um espaço de 24 pixels
+        const SizedBox(height: 24), // Adicionando um espaço de 24 pixels
         Row(
           children: [
-            Icon(Icons.family_restroom, size: 24),
-            SizedBox(width: 8), // Espaço entre o ícone e o texto
+            const Icon(Icons.family_restroom, size: 24),
+            const SizedBox(width: 8), // Espaço entre o ícone e o texto
             Text('Filiação', style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
           ],
         ),
@@ -367,15 +373,15 @@ class _PessoaFisicaFormState extends State<PessoaFisicaForm> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(child: CustomTextField(label: 'Nome da Mãe')),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Expanded(child: CustomTextField(label: 'Nome do Pai')),
           ],
         ),
-        SizedBox(height: 24), // Adicionando um espaço de 24 pixels
+        const SizedBox(height: 24), // Adicionando um espaço de 24 pixels
         Row(
           children: [
-            Icon(Icons.assignment, size: 24),
-            SizedBox(width: 8), // Espaço entre o ícone e o texto
+            const Icon(Icons.assignment, size: 24),
+            const SizedBox(width: 8), // Espaço entre o ícone e o texto
             Text('Documentação', style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
           ],
         ),
@@ -383,11 +389,11 @@ class _PessoaFisicaFormState extends State<PessoaFisicaForm> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(child: CustomTextField(label: 'CPF')),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Expanded(child: CustomTextField(label: 'Número Identidade')),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Expanded(child: CustomTextField(label: 'Órgão Exp.')),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Expanded(
               child: CustomDropdownField(
                 label: 'UF Documentação',
@@ -400,17 +406,17 @@ class _PessoaFisicaFormState extends State<PessoaFisicaForm> {
                 },
               ),
             ),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Expanded(
               child: CustomTextField(label: 'Data de Expedição', controller: widget.expedicaoController),
             ),
           ],
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         Row(
           children: [
-            Icon(Icons.shield, size: 24),
-            SizedBox(width: 8),
+            const Icon(Icons.shield, size: 24),
+            const SizedBox(width: 8),
             Text('Certificado de Reservista', style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
           ],
         ),
@@ -418,9 +424,9 @@ class _PessoaFisicaFormState extends State<PessoaFisicaForm> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(child: CustomTextField(label: 'Número')),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Expanded(child: CustomTextField(label: 'Região')),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Expanded(
               child: CustomDropdownField(
                 label: 'UF Reservista',
@@ -437,11 +443,11 @@ class _PessoaFisicaFormState extends State<PessoaFisicaForm> {
         ),
         Column(
           children: [
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Row(
               children: [
-                Icon(Icons.card_membership, size: 24),
-                SizedBox(width: 8),
+                const Icon(Icons.card_membership, size: 24),
+                const SizedBox(width: 8),
                 Expanded(
                   child: Text(
                     'Carteira Nacional de Habilitação',
@@ -454,7 +460,7 @@ class _PessoaFisicaFormState extends State<PessoaFisicaForm> {
             Row(
               children: [
                 Expanded(child: CustomTextField(label: 'Nr. Registro')),
-                SizedBox(width: 16),
+                const SizedBox(width: 16),
                 Expanded(
                   child: CustomDropdownField(
                     label: 'Categoria',
@@ -467,11 +473,11 @@ class _PessoaFisicaFormState extends State<PessoaFisicaForm> {
                     },
                   ),
                 ),
-                SizedBox(width: 16),
+                const SizedBox(width: 16),
                 Expanded(child: CustomTextField(label: 'Órgão Exp.')),
               ],
             ),
-            SizedBox(height: 12), // Espaço entre a linha de campos e a linha abaixo
+            const SizedBox(height: 12), // Espaço entre a linha de campos e a linha abaixo
             Row(
               children: [
                 Expanded(
@@ -486,14 +492,14 @@ class _PessoaFisicaFormState extends State<PessoaFisicaForm> {
                     },
                   ),
                 ),
-                SizedBox(width: 16),
+                const SizedBox(width: 16),
                 Expanded(
                   child: CustomTextField(
                     label: 'Data de Expedição',
                     controller: widget.expedicaoController,
                   ),
                 ),
-                SizedBox(width: 16),
+                const SizedBox(width: 16),
                 Expanded(
                   child: CustomTextField(
                     label: 'Validade',
@@ -528,8 +534,8 @@ class _PessoaJuridicaFormState extends State<PessoaJuridicaForm> {
       children: [
         Row(
           children: [
-            Icon(Icons.business, size: 24),
-            SizedBox(width: 8),
+            const Icon(Icons.business, size: 24),
+            const SizedBox(width: 8),
             Text('Dados Pessoa Jurídica', style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
           ],
         ),
@@ -537,16 +543,16 @@ class _PessoaJuridicaFormState extends State<PessoaJuridicaForm> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(child: CustomTextField(label: 'Razão Social')),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Expanded(child: CustomTextField(label: 'CNPJ')),
           ],
         ),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(child: CustomTextField(label: 'Inscrição Estadual')),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Expanded(
               child: CustomDropdownField(
                 label: 'UF',
@@ -574,8 +580,8 @@ class IdentificationSection extends StatelessWidget {
       children: [
         Row(
           children: [
-            Icon(Icons.business, size: 24),
-            SizedBox(width: 8),
+            const Icon(Icons.business, size: 24),
+            const SizedBox(width: 8),
             Text('Identificação Empresa', style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
           ],
         ),
@@ -583,11 +589,11 @@ class IdentificationSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(child: SizedBox(width: 100, child: CustomTextField(label: 'Sigla'))),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Expanded(child: SizedBox(width: 100, child: CustomTextField(label: 'Nº de Inscrição no DMTU'))),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Expanded(child: SizedBox(width: 100, child: CustomTextField(label: 'Cód. Operadora SBA'))),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Expanded(child: SizedBox(width: 100, child: CustomTextField(label: 'Grupo Econômico'))),
           ],
         ),
@@ -604,9 +610,8 @@ class AddressSection extends StatefulWidget {
 class _AddressSectionState extends State<AddressSection> {
   String? selectedEnderecoUF;
 
-  final List<String> ufs = [
-    'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'
-  ];
+  final List<String> ufs = Uf_endereco.values;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -615,8 +620,8 @@ class _AddressSectionState extends State<AddressSection> {
       children: [
         Row(
           children: [
-            Icon(Icons.home, size: 24),
-            SizedBox(width: 8),
+            const Icon(Icons.home, size: 24),
+            const SizedBox(width: 8),
             Text('Endereço', style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
           ],
         ),
@@ -624,9 +629,9 @@ class _AddressSectionState extends State<AddressSection> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(child: SizedBox(width: 100, child: CustomTextField(label: 'Endereço'))),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Expanded(child: SizedBox(width: 100, child: CustomTextField(label: 'Cidade'))),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Expanded(
               child: SizedBox(width: 100, child: CustomDropdownField(
                 label: 'UF',
@@ -639,20 +644,20 @@ class _AddressSectionState extends State<AddressSection> {
                 },
               )),
             ),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Expanded(child: SizedBox(width: 100, child: CustomTextField(label: 'Bairro'))),
           ],
         ),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(child: SizedBox(width: 100, child: CustomTextField(label: 'CEP'))),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Expanded(child: SizedBox(width: 100, child: CustomTextField(label: 'Telefone'))),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Expanded(child: SizedBox(width: 100, child: CustomTextField(label: 'Celular'))),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Expanded(child: SizedBox(width: 100, child: CustomTextField(label: 'E-mail'))),
           ],
         ),
@@ -669,8 +674,8 @@ class ContactsSection extends StatelessWidget {
       children: [
         Row(
           children: [
-            Icon(Icons.phone, size: 24),
-            SizedBox(width: 8),
+            const Icon(Icons.phone, size: 24),
+            const SizedBox(width: 8),
             Text('Contatos', style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
           ],
         ),
@@ -678,9 +683,9 @@ class ContactsSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(child: SizedBox(width: 100, child: CustomTextField(label: 'Nome Contato'))),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Expanded(child: SizedBox(width: 100, child: CustomTextField(label: 'Número de Contato'))),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Expanded(child: SizedBox(width: 100, child: CustomTextField(label: 'E-mail'))),
           ],
         ),
@@ -703,8 +708,8 @@ class IssSection extends StatelessWidget {
       children: [
         Row(
           children: [
-            Icon(Icons.money_off, size: 24),
-            SizedBox(width: 8),
+            const Icon(Icons.money_off, size: 24),
+            const SizedBox(width: 8),
             Text('ISS', style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
           ],
         ),
@@ -712,7 +717,7 @@ class IssSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(child: SizedBox(width: 100, child: CustomTextField(label: 'Número'))),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Expanded(child: CustomTextField(label: 'Data de Vencimento', controller: dateController)),
           ],
         ),
